@@ -17,6 +17,12 @@ class PostController {
 
     res.status(200).json(posts);
   }
+
+  getOne = async (req, res) => {
+    const post = await Post.findOne({_id: req.params.id})
+
+    res.status(200).json(post)
+  }
 }
 
 module.exports = PostController;
