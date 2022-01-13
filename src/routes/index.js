@@ -5,6 +5,7 @@ module.exports = (router) => {
   router.post('/posts', postController.create);
   router.get('/posts', postController.getAll);
   router.get('/posts/:id', postController.getOne);
+  router.patch('/posts/:id', postController.update);
 
   return router;
 }
