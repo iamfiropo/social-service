@@ -34,7 +34,7 @@ class PostController {
     // 4) check the database response
     // 5) if it is a failure response, send back to the client an error message of record not found
     if (!post) {
-      res.status(404).json('Post not found');
+      return res.status(404).json('Post not found');
     }
     // 6) if succeeded, update the stored records with the req.body properties
     // 7) save record
@@ -44,6 +44,19 @@ class PostController {
     updatedPost.save();
 
     res.status(200).json(updatedPost)
+  }
+
+  delete = async (req, res) => {
+    // 1) get id or identifier of that object from the req.params
+    const id = req.params.id;
+    // 2) delete the record
+    const post = await Post.findByIdAndDelete({ _id: id });
+
+    if (!post) {
+      return res.status(404).json('Post not found');
+    }
+
+    res.status(200).json('success');
   }
 }
 
