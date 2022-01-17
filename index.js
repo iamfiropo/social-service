@@ -13,10 +13,6 @@ app.use(cors())
 app.use(express.json());
 app.use('/', Route(router))
 
-app.get('/posts', (req, res) => {
-  res.json('I am the post endpoint')
-})
-
 app.listen(port, () => {
   console.log('Server is listening on port: 8080')
 });
