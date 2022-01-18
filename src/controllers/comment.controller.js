@@ -1,14 +1,30 @@
 const Comment = require('../models/comment.model')
+const Post = require('../models/post.model');
 
 class CommentController {
   create = async (req, res) => {
-    const { content } = req.body;
+    const { content, postId } = req.body;
+
+    try {
+      if (postId) {
+        const post = await Post.findOne({
+          _id: postId
+        })
   
-    const comment = await Comment.create({
-      content
-    });
-  
-    res.status(201).json(comment)
+        if (!post) {
+          return res.status(404).json('Post id not found')
+        }
+      }
+    
+      const comment = await Comment.create({
+        content,
+        postId
+      });
+    
+      res.status(201).json(comment)
+    } catch(error) {
+      res.status(500).json({ error: error.message })
+    }
   }
 
   getAll = async (req, res) => {
